@@ -1,0 +1,10 @@
+run.png - loaded
+в логе
+ не получается сохранить предыдущий текст
+run_s.png - loaded
+в логе
+ не получается сохранить предыдущий текст
+options.png - loaded
+options_s.png - loaded
+exit.png - loaded
+exit_s.png - loaded
