@@ -12,24 +12,24 @@ class Game
 public:
 	Game();
 	~Game();
-	// static enum eGameState{ launcher, menu, gameitself, opening, ending } GS; // static чтобы использ вне класса
+	// static enum eGameState{ launcher, menu, gameitself, opening, ending } GS; // static Г·ГІГ®ГЎГ» ГЁГ±ГЇГ®Г«ГјГ§ ГўГ­ГҐ ГЄГ«Г Г±Г±Г 
 	enum eGameState{ gs_launcher, gs_menu, gs_gameitself, gs_opening, gs_ending } GS = gs_launcher; // error LNK2001: unresolved external symbol "public: static enum Game::eGameState Game::GS" (?GS@Game@@2W4eGameState@1@A)
 	enum eButtonsLauncher { bl_nothing, bl_run, bl_options, bl_autors, bl_exit } BL = bl_nothing;
 	
-	// это третий дескриптор окна (единый хз как передавать между модулями)
-	// hWnd первым при созд окна определится в майн 
-	//+хендл потом  в GraphicsDevice при инициализации directx
+	// ГЅГІГ® ГІГ°ГҐГІГЁГ© Г¤ГҐГ±ГЄГ°ГЁГЇГІГ®Г° Г®ГЄГ­Г  (ГҐГ¤ГЁГ­Г»Г© ГµГ§ ГЄГ ГЄ ГЇГҐГ°ГҐГ¤Г ГўГ ГІГј Г¬ГҐГ¦Г¤Гі Г¬Г®Г¤ГіГ«ГїГ¬ГЁ)
+	// hWnd ГЇГҐГ°ГўГ»Г¬ ГЇГ°ГЁ Г±Г®Г§Г¤ Г®ГЄГ­Г  Г®ГЇГ°ГҐГ¤ГҐГ«ГЁГІГ±Гї Гў Г¬Г Г©Г­ 
+	//+ГµГҐГ­Г¤Г« ГЇГ®ГІГ®Г¬  Гў GraphicsDevice ГЇГ°ГЁ ГЁГ­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГЁ directx
 	HWND game_hwnd;
 
 	bool GameInitialize(HWND hWnd);
 	bool LoadStateResource(eGameState GS);
-	//void Run(eGameState GS); // virtual - сделать тут пустышками а реализовать ТОЛЬКО в модулях ???
+	//void Run(eGameState GS); // virtual - Г±Г¤ГҐГ«Г ГІГј ГІГіГІ ГЇГіГ±ГІГ»ГёГЄГ Г¬ГЁ Г  Г°ГҐГ Г«ГЁГ§Г®ГўГ ГІГј Г’ГЋГ‹ГњГЉГЋ Гў Г¬Г®Г¤ГіГ«ГїГµ ???
 	void Run();
 	void Update(float gameTime);
 	void Draw(float gameTime);
 	
-	// перенес в WindowProc case WM_MOUSEMOVE
-	//void CheckCursor(HWND game_hwnd); // или передать hWnd или ручками выпрямлять координаты
+	// ГЇГҐГ°ГҐГ­ГҐГ± Гў WindowProc case WM_MOUSEMOVE
+	//void CheckCursor(HWND game_hwnd); // ГЁГ«ГЁ ГЇГҐГ°ГҐГ¤Г ГІГј hWnd ГЁГ«ГЁ Г°ГіГ·ГЄГ Г¬ГЁ ГўГ»ГЇГ°ГїГ¬Г«ГїГІГј ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ»
 	
 	void SetColor(int r, int g, int b);
 	void PrintText(int x, int y, LPCWSTR text);
@@ -42,7 +42,7 @@ public:
 
 	
 	POINT ptCursor;
-	//текущие координаты курсора
+	//ГІГҐГЄГіГ№ГЁГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГіГ°Г±Г®Г°Г 
 	struct Point2D
 	{
 		float x, y;
@@ -50,7 +50,7 @@ public:
 		Point2D(float x, float y) : x(x), y(y) {}
 	};
 
-	//  прямоугольник для кнопок
+	//  ГЇГ°ГїГ¬Г®ГіГЈГ®Г«ГјГ­ГЁГЄ Г¤Г«Гї ГЄГ­Г®ГЇГ®ГЄ
 	struct Rect2D
 	{
 		float l, t, r, b;
@@ -59,10 +59,10 @@ public:
 	};
 	bool PointInRect(Point2D &p, Rect2D &r);
 
-	//friend class Launcher;
-	Rect2D Rect1{ 0,   0, 200, 100 };
-	Rect2D Rect2{ 0, 102, 200, 100 };
-	Rect2D Rect3{ 0, 204, 200, 100 };
+	// left top right bottom
+	Rect2D Rect1{ 0, 0, 200, 100 }; 
+	Rect2D Rect2{ 0, 102, 200, 202 }; // Rect2D Rect2{ 0, 102, 200, 100 };	// will not works - becouse of on the Rect1 coords 
+	Rect2D Rect3{ 0, 204, 200, 304 };
 
 private:
 	//Launcher *l;
@@ -76,7 +76,7 @@ private:
 	
 	//GameSprite *button_active_now;
 
-	GameSprite *button_run; // создать обертку над спрайтами -некую GameButton с пустышками для иницииализации
+	GameSprite *button_run; // Г±Г®Г§Г¤Г ГІГј Г®ГЎГҐГ°ГІГЄГі Г­Г Г¤ Г±ГЇГ°Г Г©ГІГ Г¬ГЁ -Г­ГҐГЄГіГѕ GameButton Г± ГЇГіГ±ГІГ»ГёГЄГ Г¬ГЁ Г¤Г«Гї ГЁГ­ГЁГ¶ГЁГЁГ Г«ГЁГ§Г Г¶ГЁГЁ
 	GameSprite *button_launcher1;
 	GameSprite *button_launcher1a; // a - active
 	GameSprite *button_launcher1s; // s - selected
